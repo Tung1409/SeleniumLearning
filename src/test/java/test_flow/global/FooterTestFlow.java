@@ -1,9 +1,9 @@
 package test_flow.global;
 
 import models.components.global.TopMenuComponent;
+
 import static models.components.global.TopMenuComponent.MainCatItemComp;
 import static models.components.global.TopMenuComponent.SubListComp;
-import static url.Urls.baseUrl;
 
 import models.components.global.footer.FooterColumnComponent;
 import models.components.global.footer.FooterComponent;
@@ -30,7 +30,7 @@ public class FooterTestFlow {
         this.driver = driver;
     }
 
-    public void verifyFooterComponent(){
+    public void verifyFooterComponent() {
         BasePage basePage = new BasePage(driver);
         FooterComponent footerComponent = basePage.footerComp();
         verifyInformationColumn(footerComponent.informationColumnComp());
@@ -61,20 +61,20 @@ public class FooterTestFlow {
     private void verifyAccountColumn(FooterColumnComponent footerColumnComp) {
         String baseUrl = Urls.demoPageUrl;
         List<String> expectedLinkText = Arrays.asList("My account", "Orders", "Addresses", "Shopping cart", "Wishlist");
-        List<String> expectedHrefs = Arrays.asList(baseUrl + "/customer/info",baseUrl + "/customer/orders",
-                baseUrl + "/customer/addresses",baseUrl + "/cart",baseUrl + "/wishlist");
+        List<String> expectedHrefs = Arrays.asList(baseUrl + "/customer/info", baseUrl + "/customer/orders",
+                baseUrl + "/customer/addresses", baseUrl + "/cart", baseUrl + "/wishlist");
         verifyFooterColumn(footerColumnComp, expectedLinkText, expectedHrefs);
     }
 
     private void verifyFollowUsColumn(FooterColumnComponent footerColumnComp) {
         String baseUrl = Urls.demoPageUrl;
         List<String> expectedLinkText = Arrays.asList("Facebook", "Twitter", "RSS", "YouTube", "Google+");
-        List<String> expectedHrefs = Arrays.asList(baseUrl + "http://www.facebook.com/nopCommerce", baseUrl + "http://www.twitter.com/nopCommerce",
-                baseUrl + "/news/rss/1", baseUrl + "http://www.youtube.com/user/nopCommerce", baseUrl + "https://plus.google.com/+nopcommerce");
+        List<String> expectedHrefs = Arrays.asList("http://www.facebook.com/nopCommerce", "https://twitter.com/nopCommerce",
+                baseUrl + "/news/rss/1", "http://www.youtube.com/user/nopCommerce", "https://plus.google.com/+nopcommerce");
         verifyFooterColumn(footerColumnComp, expectedLinkText, expectedHrefs);
     }
 
-    public void verifyProductCatFooterComp(){
+    public void verifyProductCatFooterComp() {
         // Random pickup an item
         BasePage basePage = new BasePage(driver);
         TopMenuComponent topMenuComp = basePage.topMenuComp();
@@ -87,7 +87,7 @@ public class FooterTestFlow {
 
         // Get Sublist
         List<SubListComp> subListComps = randomMainItemElem.subListComps();
-        if (subListComps.isEmpty()){
+        if (subListComps.isEmpty()) {
             randomMainItemElem.catItemLinkElem().click();
         } else {
             int randomIndex = new SecureRandom().nextInt(subListComps.size());
@@ -100,18 +100,16 @@ public class FooterTestFlow {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             wait.until(ExpectedConditions.urlContains(randomCatHref));
-        } catch (TimeoutException e){
+        } catch (TimeoutException e) {
             Assert.fail("The target page is not matched");
         }
 
-
         // Verify footer component
         verifyFooterComponent();
-
     }
 
     private void verifyFooterColumn(FooterColumnComponent footerColumnComponent,
-                                  List<String> expectedLinkText, List<String> expectedHrefs){
+                                    List<String> expectedLinkText, List<String> expectedHrefs) {
         List<String> actualLinkText = new ArrayList<>();
         List<String> actualHrefs = new ArrayList<>();
 
@@ -119,7 +117,7 @@ public class FooterTestFlow {
             actualLinkText.add(link.getText().trim());
             actualHrefs.add(link.getAttribute("href"));
         }
-        if (actualLinkText.isEmpty() || actualHrefs.isEmpty()){
+        if (actualLinkText.isEmpty() || actualHrefs.isEmpty()) {
             Assert.fail("[ERR] Text or hyperlink is empty in footer column!!");
         }
 

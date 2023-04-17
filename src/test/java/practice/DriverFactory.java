@@ -14,11 +14,11 @@ public class DriverFactory {
         String chromeDriverlocation = "";
 
         if (OS.isFamilyMac()){
-            chromeDriverlocation = currentProjectlocation + "/src/test/resources/drivers/chromedriver.exe";
+            chromeDriverlocation = currentProjectlocation + "/src/test/resources/drivers/chromedriver2.exe";
         }
 
         if (OS.isFamilyWindows()){
-            chromeDriverlocation = currentProjectlocation + "\\src\\test\\resources\\drivers\\chromedriver.exe";
+            chromeDriverlocation = currentProjectlocation + "\\src\\test\\resources\\drivers\\chromedriver2.exe";
         }
 
         if (chromeDriverlocation.isEmpty()){
